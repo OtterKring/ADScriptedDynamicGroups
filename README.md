@@ -26,3 +26,5 @@ If not opted out using `-DoNotUpdateMemberList` the group's memberlist will be u
 This is the cmdlet for regularly updating the memberlists of the groups created with this module, thus mimicing the key functionality of dynamic groups. Call this cmdlet providing it with the `-Name` or `-ObjectGuid` of the group you want to update and it will take care of the rest.
 
 A scheduled job or task calling this cmdlet should be enough to update your ScriptedDynamic-Groups without further coding.
+
+Yet to implement: call without parameters and update all groups found in Active Directory marked as "ScriptedDynamic"
