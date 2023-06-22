@@ -27,9 +27,9 @@ GroupCategory as used in Active Directory. Allowed values are Distribution and S
 Seconds to wait for the new group to appear in Active Directory after creation. Default = 10
 
 .EXAMPLE
-New-AGRADScriptedDynamicGroup -Name ATHQ_Consultants -Path 'OU=Groups,OU=ATAB,OU=AT,DC=agrana,DC=net' -MembershipRule 'Enabled -eq true -and SamAccountName -like "c_*"'
+New-ADScriptedDynamicGroup -Name Finance_Consultants -Path 'OU=Groups,OU=Finance,DC=MyDomain,DC=net' -MembershipRule 'Enabled -eq true -and SamAccountName -like "con_*"'
 
-Will created the universal security group ATHQ_Consultants at agrana.net/AT/ATAB/Groups and add all enabled UserAccounts with a SamAccountName starting with 'c_' to the group.
+Will created the universal security group Finance_Consultants at mydomain.net/Finance/Groups and add all enabled UserAccounts with a SamAccountName starting with 'con_' to the group.
 
 .NOTES
 2023-05-03 ... initial version by Maximilian Otter

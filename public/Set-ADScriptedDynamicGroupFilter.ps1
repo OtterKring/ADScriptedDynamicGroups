@@ -18,7 +18,7 @@ Array of OrganizationalUnits' DistinguishedNames to search users in. If omitted,
 Switch to opt out from updating the memberlist after changing the membershiprule
 
 .EXAMPLE
-Set-ADScriptedDynamicGroupFilter -Name ATHQ_Consultants -MembershipRule 'Enabled -eq "true" -and SamAccountName -like "c_*" -and extensionAttribute7 -eq "ATHQ"'
+Set-ADScriptedDynamicGroupFilter -Name Finance_Consulants_Consultants -MembershipRule 'Enabled -eq "true" -and SamAccountName -like "c_*" -and extensionAttribute7 -eq "Finance_Consulants"'
 
 Updates the membershiprule string in the description json and the memberlist of the group
 
