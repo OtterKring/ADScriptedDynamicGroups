@@ -111,9 +111,14 @@ class JSONDescription {
 
     hidden [string] Parse ( [string]$Value ) {
 
-        $this.PrependingText = ( $Value -split $this.Prefix )[0]
-        $this.TrailingText = ( $Value -split $this.Postfix )[-1]
-        return [regex]::Match( $Value, "(?<=$($this.Prefix)).+(?=$($this.Postfix))" ).Value
+        # $this.PrependingText = ( $Value -split $this.Prefix )[0]
+        # $this.TrailingText = ( $Value -split $this.Postfix )[-1]
+        # return [regex]::Match( $Value, "(?<=$($this.Prefix)).+(?=$($this.Postfix))" ).Value
+
+        $DescriptionParts = $Value -split "$($this.Prefix)|$($this.Postfix)"
+        $this.PrependingText = $DescriptionParts[0]
+        $this.TrailingText = $DescriptionParts[-1]
+        return $DescriptionParts[1]
 
     }
 

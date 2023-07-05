@@ -46,11 +46,12 @@ function Update-ADScriptedDynamicGroupMembers {
     begin {
 
         # if the function was called as the first command in a pipeline (or without any pipeline) and no parameter was provided, find all groups with this module's json information in the description
-        if ( $MyInvocation.PipelinePosition -eq 0 -and -not ( $Name -or $ObjectGuid ) ) {
-            $local:JD = [JSONDescription]::new()
-            $DynGroups = Get-ADGroup -Filter "Description -like '*$($JD.Prefix)*' -and Description -like '*$($JD.Postfix)*'" -Properties Description
-            Remove-Variable -Name JD -Scope Local
-        }
+        # if ( $MyInvocation.PipelinePosition -eq 0 -and -not ( $Name -or $ObjectGuid ) ) {
+            # $local:JD = [JSONDescription]::new()
+            # $DynGroups = Get-ADGroup -Filter "Description -like '*$($JD.Prefix)*' -and Description -like '*$($JD.Postfix)*'" -Properties Description
+            # Remove-Variable -Name JD -Scope Local
+        #     $DynGroups
+        # }
 
     }
 
@@ -76,10 +77,20 @@ function Update-ADScriptedDynamicGroupMembers {
     end {
 
         # if the function was called without or as the first element of a pipeline without any parameters so it queried all groups with matching json information in the description. The Process section was left out in this case, so we must deal with the returned groups here.
-        if ( $DynGroups.Count -gt 0 ) {
-            foreach ( $g in $DynGroups ) {
-                updateGroup -Group $g
-            }
+        # if ( $DynGroups.Count -gt 0 ) {
+        #     foreach ( $g in $DynGroups ) {
+        #         updateGroup -Group $g
+        #     }
+        # }
+
+        # if first cmd in (or without) pipeline and no parameters...
+        if ( $MyInvocation.PipelinePosition -le 1 -and $PSBoundParameters.Count -eq 0 ) {
+            Get-ADScriptedDynamicGroup |
+                Where-Object {
+                    process {
+                        updateGroup -Group $_
+                    }
+                }
         }
 
     }
